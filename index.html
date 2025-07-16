@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Saroj | Data & Business Analyst Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chosen Palette: Midnight & Electric Teal -->
+    <!-- Application Structure Plan: A single-page vertical scrolling layout with a sticky navigation bar. The structure follows a logical narrative for a portfolio: Hero (introduction), About Me, Skills (technical proficiency), Projects (proof of work), Education, and Contact. This linear flow allows recruiters to easily progress through the candidate's story. The sticky nav provides quick access to any section, enhancing usability on a content-rich single page. -->
+    <!-- Visualization & Content Choices: 
+        - Skills: Goal: Showcase technical abilities. Viz: Horizontal progress bars using styled HTML divs. Interaction: None, static display. Justification: Clear, scannable, and common convention for skill representation, avoiding chart overhead.
+        - Projects: Goal: Demonstrate practical experience. Viz: A responsive grid of project "cards". Interaction: Hover effects for engagement, clickable links to code/live demos. Justification: A visually appealing and organized way to present detailed project information.
+        - Education: Goal: Display academic credentials. Viz: A clean, vertical timeline format. Interaction: None. Justification: Effectively visualizes chronological progression in a compact and easy-to-read manner.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #cbd5e1; }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; transform: translateX(-50%); background-color: #2dd4bf; transition: width 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #2dd4bf; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .skill-bar-fill { transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .project-card { display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; background-color: #1e293b; border: 1px solid #334155; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 0 25px rgba(45, 212, 191, 0.2); }
+        .project-card-content { flex-grow: 1; display: flex; flex-direction: column; }
+        .project-card-image { aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid #334155; }
+        .section-title { position: relative; padding-bottom: 0.75rem; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background-image: linear-gradient(to right, #2dd4bf, #0ea5e9); border-radius: 2px; }
+        .timeline-item::before { content: ''; position: absolute; left: -2.625rem; top: 0.25rem; width: 1.25rem; height: 1.25rem; background-color: #1e293b; border-radius: 9999px; border: 4px solid #2dd4bf; }
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <header id="header" class="bg-slate-900/80 backdrop-blur-lg shadow-lg shadow-black/20 sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-white">Sahil Saroj</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link font-medium">About</a>
+                <a href="#skills" class="nav-link font-medium">Skills</a>
+                <a href="#projects" class="nav-link font-medium">Projects</a>
+                <a href="#education" class="nav-link font-medium">Education</a>
+                <a href="#contact" class="nav-link font-medium">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900">
+            <a href="#about" class="block py-3 px-6 text-center nav-link">About</a>
+            <a href="#skills" class="block py-3 px-6 text-center nav-link">Skills</a>
+            <a href="#projects" class="block py-3 px-6 text-center nav-link">Projects</a>
+            <a href="#education" class="block py-3 px-6 text-center nav-link">Education</a>
+            <a href="#contact" class="block py-3 px-6 text-center nav-link">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-8 md:py-10">
+            <div class="container mx-auto px-6 text-center">
+                <p class="text-teal-400 font-mono mb-2">Hi, my name is</p>
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-4">Sahil Saroj.</h1>
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-400 mb-6">I build things with data.</h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-slate-400 mb-8">A data and business analytics enthusiast from NIT Bhopal, passionate about transforming complex datasets into meaningful insights that support smart, data-driven decisions.</p>
+                <div class="flex justify-center items-center flex-wrap gap-4">
+                    <a href="#projects" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full transition-transform duration-300 inline-block transform hover:scale-105">
+                        View My Work
+                    </a>
+                    <!-- EDIT: Add the link to your blog here -->
+                    <a href="https://medium.com/@sahilroshan1205/sql-simplified-exactly-what-data-analysts-need-14d463137528" target="_blank" class="border-2 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 inline-block">
+                        View My Blogs
+                    </a>
+                    <a href="Sahil_resume.pdf" target="_blank" class="border-2 border-slate-500 text-slate-400 hover:bg-slate-700 hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 inline-block">
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-8 md:py-10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-bold text-white mb-12">About Me</h2>
+                <div class="grid md:grid-cols-5 gap-12 items-center">
+                    <div class="md:col-span-2">
+                        <img src="Sahil.jpg" alt="Sahil Saroj" class="rounded-lg shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:col-span-3">
+                        <p class="mb-4">Hey there! I'm currently pursuing my B.Tech in Materials and Metallurgical Engineering at NIT Bhopal, but somewhere along the way, I found myself drawn toward the world of data. What started as curiosity soon turned into a passion—especially after my internship at IIT Ropar, where I got to work hands-on with real data problems. That experience opened my eyes to how much impact data can have when it’s analyzed with purpose.</p>
+                        <p class="mb-4">Since then, I’ve been diving deep into tools like Python, SQL, Power BI, Excel, Tableau, and even machine learning—building projects around customer churn, A/B testing, regression models, and interactive dashboards. I love working on problems where data meets business decisions, and I’m especially interested in making insights not just technically sound, but actually useful and actionable.</p>
+                        <p>Whether it’s creating a recommender system, deploying a Streamlit app, or digging through messy datasets to find patterns, I enjoy the process of turning raw data into something meaningful. I believe the best insights come when you blend analytical thinking with real business context—and that’s the space I love working in.</p>
+                        <p class="mt-6">I also pride myself on the following soft skills:</p>
+<ul class="mt-2 grid grid-cols-2 gap-x-6 gap-y-1 text-slate-400 font-mono text-sm">
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Problem Solving</li>
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Effective Communication</li>
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Team Collaboration</li>
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Presentation Skills</li>
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Leadership</li>
+    <li class="flex items-center"><i class="fa-solid fa-caret-right text-teal-400 mr-2"></i>Event Coordination</li>
+</ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-8 md:py-10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-bold text-white mb-12">Technical Skills</h2>
+                <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">Python (Pandas, NumPy)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="90%"></div></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">SQL (MySQL, PostgreSQL)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="85%"></div></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">BI Tools (Power BI, Tableau)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="90%"></div></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">Machine Learning (Scikit-learn)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="80%"></div></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">Data Visualization (Matplotlib, Seaborn)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="85%"></div></div>
+                    </div>
+                     <div>
+                        <h3 class="text-lg font-semibold mb-2 text-white">Web Apps & Deployment (Streamlit, Render)</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-3"><div class="skill-bar-fill bg-teal-500 h-3 rounded-full" style="width: 0%" data-width="70%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-8 md:py-10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-bold text-white mb-12">Featured Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="bcg.png" alt="Customer Churn Analysis Project" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Customer Churn Analysis (BCG)</h3>
+                            <p class="text-sm mb-4 flex-grow">Simulated a real-world churn prediction scenario for a BCG client. Conducted EDA to uncover customer behavior trends and engineered a random forest classifier with 50% recall to identify at-risk users. Optimized the model using feature selection techniques.</p>
+                            <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Python</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Random Forest</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">EDA</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Feature Engineering</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Classification Modeling</span>
+                            </div>
+                            <a href="https://github.com/sahilsaroj-2004/BCG-Customer-Churn-Analysis" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="pred.png" alt="T20 Match Predictor Project" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">T20 Match Outcome Predictor</h3>
+                            <p class="text-sm mb-4 flex-grow">Built a full-stack IPL match prediction web app using Streamlit and Scikit-learn, achieving 81% accuracy. Users can input live match details to instantly get winning probabilities. Integrated end-to-end deployment for real-time usage.</p>
+                             <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Python</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Streamlit</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Scikit-learn</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Logistic Regression</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Web App Deployment</span>
+                            </div>
+                            <a href="https://github.com/Sahil-Saroj/IPL-WIN-PREDICTOR-ML" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="Amazon.png" alt="Amazon Product Dashboard Project" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Amazon Product Analytics Dashboard</h3>
+                            <p class="text-sm mb-4 flex-grow">Designed a Power BI dashboard with SQL-driven insights to monitor rating variance, identify underperforming products, and analyze discount patterns. Empowered data-backed decisions for product strategy and customer satisfaction improvement.</p>
+                             <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">SQL</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Power BI</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Data Cleaning</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Dashboard Design</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Data Visualization</span>
+                            </div>
+                            <a href="https://github.com/Sahil-Saroj/Amazon-Analysis-Dashboard-Report" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="dashboard.png" alt="Customer Churn Analysis Project" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Dashboard for Perfomance Report</h3>
+                            <p class="text-sm mb-4 flex-grow">Created an analytical dashboard visualizing performance KPIs and customer retention metrics. Implemented EDA and random forest to uncover churn patterns, enabling focused retention strategies.</p>
+                            <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Excel</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Power Query</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">DAX</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">KPI Dashboarding</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Data Preprocessing</span>
+                            </div>
+                            <a href="https://github.com/Sahil-Saroj/Dashboard-for-Sales-company" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="pizza.png" alt="Customer Churn Analysis Project" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Pizza Sales Analysis </h3>
+                            <p class="text-sm mb-4 flex-grow">Analyzed pizza store sales data to detect customer patterns, product performance, and peak order times. Utilised SQL with python and derived the insights which helped in business growth.</p>
+                            <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Advanced SQL</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Postgresql</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Data Exploration</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">KPI Evaluation</span>
+                            </div>
+                            <a href="https://github.com/Sahil-Saroj/Pizza-Sales_Analysis" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+
+                    <div class="project-card rounded-lg shadow-lg overflow-hidden">
+                        <img src="Netflix_photo.png" alt=" Netflix" class="project-card-image">
+                        <div class="p-6 project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Netlix Movie analysis + Recommendation system</h3>
+                            <p class="text-sm mb-4 flex-grow">Developed a content-based recommendation system for Netflix users. Combined churn prediction modeling with user preferences to deliver personalized movie suggestions and reduce customer drop-offs.</p>
+                            <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Python</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Pandas</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Numpy</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Scikit-learn</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Content-Based Filtering</span>
+                                <span class="bg-slate-700 text-teal-400 px-2 py-1 rounded">Recommendation Algorithms</span>
+                            </div>
+                            <a href="https://github.com/Sahil-Saroj/Netflix-movie-analysis-recommendation" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300">View <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+                <section id="certifications" class="py-8 md:py-10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-bold text-white mb-12">Certifications & Credentials</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="card-base rounded-lg shadow-lg overflow-hidden">
+                        <!-- EDIT: Replace the src with your certificate image file -->
+                        <img src="bcgcerti.png" alt="BCG Data Science Certificate" class="project-card-image">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">BCG Data Science Simulation</h3>
+                            <p class="text-sm mb-4 flex-grow">Completed a virtual experience program applying advanced analytics to real-world business case scenarios.</p>
+                            <!-- EDIT: Add the verification link for your certificate here -->
+                            <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/SKZxezskWgmFjRvj9/Tcz8gTtprzAS4xSoK_SKZxezskWgmFjRvj9_6dSogr2suY6sBT2sJ_1736572672663_completion_certificate.pdf" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300 mt-auto">Verify <i class="fas fa-external-link-alt text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-base rounded-lg shadow-lg overflow-hidden">
+                        <!-- EDIT: Replace the src with your certificate image file -->
+                        <img src="microcerti.png" alt="Microsoft Data Analyst Certificate" class="project-card-image">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">Microsoft Certified: Data Analyst</h3>
+                            <p class="text-sm mb-4 flex-grow">Certified in data analysis, visualization, Excel, and reporting fundamentals through Microsoft's official curriculum.</p>
+                            <!-- EDIT: Add the verification link for your certificate here -->
+                            <a href="https://www.linkedin.com/learning/certificates/d5346166cd3547380b3dcb1d84f794d296e09bade08460c4a8aff28552244a2b" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300 mt-auto">Verify <i class="fas fa-external-link-alt text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="card-base rounded-lg shadow-lg overflow-hidden">
+                        <!-- EDIT: Replace the src with your certificate image file -->
+                        <img src="hackercerti.png" alt="HackerRank SQL Certificate" class="project-card-image">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold text-white mb-2">HackerRank SQL (Advanced)</h3>
+                            <p class="text-sm mb-4 flex-grow">Earned certification for proficiency in complex data querying, manipulation, and advanced SQL problem-solving.</p>
+                            <!-- EDIT: Add the verification link for your certificate here -->
+                            <a href="https://www.hackerrank.com/certificates/iframe/db300ff37d14" target="_blank" class="font-semibold text-teal-400 hover:text-teal-300 mt-auto">Verify <i class="fas fa-external-link-alt text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+       
+        <section id="education" class="py-8 md:py-10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-bold text-white mb-16">Education</h2>
+                <div class="relative pl-10 border-l-2 border-slate-700">
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold text-white">Bachelor of Technology, Materials & Metallurgical Engineering</h3>
+                        <p class="font-semibold text-teal-400 mb-1">Maulana Azad National Institute of Technology, Bhopal</p>
+                        <p class="text-sm text-slate-400 mb-2">2022 - 2026 (Expected)</p>
+                        <p class="text-sm font-medium mt-1">Current CGPA: 8.08/10</p>
+                    </div>
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold text-white">Intermediate Education - 12th CBSE</h3>
+                        <p class="font-semibold text-teal-400 mb-1">BBS Inter College Pratapgarh, Uttar Pradesh</p>
+                        <p class="text-sm text-slate-400 mb-2">2021 - 2022</p>
+                        <p class="text-sm font-medium">Percentage: 88.4%</p>
+                    </div>
+                    <div class="timeline-item mb-12">
+                        <h3 class="text-xl font-bold text-white">High School - 10th CBSE</h3>
+                        <p class="font-semibold text-teal-400 mb-1">Erny Memorial School Prayagraj, Uttar Pradesh</p>
+                        <p class="text-sm text-slate-400 mb-2">2019 - 2020</p>
+                        <p class="text-sm font-medium">Percentage: 96.5%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-8 md:py-10 text-center fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-white mb-4">Get In Touch</h2>
+                <p class="max-w-2xl mx-auto text-slate-400 mb-8">I'm currently exploring roles in data analysis, business analytics, and product insights. My inbox is always open, whether you have a question or just want to say hi!</p>
+                <a href="mailto:sahiltyson12@gmail.com" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-8 rounded-full transition-transform duration-300 inline-block transform hover:scale-105 text-lg">
+                    Email me
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex justify-center items-center space-x-6 mb-4 text-2xl">
+                <a href="https://github.com/Sahil-Saroj" target="_blank" class="text-slate-400 hover:text-teal-400 transition-colors" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/sahil-saroj-049a96269/" target="_blank" class="text-slate-400 hover:text-teal-400 transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="text-center text-slate-500 font-mono text-sm">&copy; 2025 Sahil Saroj. Designed & Built by Sahil Saroj.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            mobileMenu.addEventListener('click', (e) => {
+                if(e.target.classList.contains('nav-link')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+            
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        
+                        const targetId = entry.target.id;
+                        document.querySelectorAll('header .nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${targetId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+
+                        if (entry.target.id === 'skills') {
+                            const skillBars = document.querySelectorAll('.skill-bar-fill');
+                            skillBars.forEach(bar => {
+                                setTimeout(() => {
+                                    bar.style.width = bar.dataset.width;
+                                }, 200);
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
